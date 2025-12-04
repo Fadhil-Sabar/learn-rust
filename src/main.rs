@@ -1,28 +1,32 @@
-use std::fs;
-use serde::Deserialize;
-
-#[derive(Deserialize, Debug)]
-struct Data {
-    id: i32,
-    first_name: String,
-    last_name: String,
-    gender: String,
-    ip_address: String,
-}
+use rand::Rng;
+use std::cmp::Ordering;
+use std::io;
 
 fn main() {
-    let test_string = "Hello World";
-    println!("{}", test_string);
-    
-    read_mock();
-}
+    println!("Tebak Nomor");
 
-fn read_mock() -> Vec<Data>{
-    let file_content = fs::read_to_string("MOCK_DATA.json")
-        .expect("Can't read file");
+    let secret_number = rand::rng().random_range(1..=100);
 
-    let data: Vec<Data> = serde_json::from_str(&file_content)
-        .expect("Can't read JSON");
+    loop {
+        println!("Masukkan nomor tebakan anda");
+        let mut guess = String::new();
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Error saat membaca input");
 
-    data
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => return,
+        };
+
+        println!("Anda menebak {guess}");
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Terlalu kecil!"),
+            Ordering::Greater => println!("Terlalu besar!"),
+            Ordering::Equal => {
+                println!("Anda benar, angkanya adalah {secret_number}");
+                break;
+            }
+        }
+    }
 }
