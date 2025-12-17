@@ -20,6 +20,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "chapter_2"
+version = "0.1.0"
+dependencies = [
+ "rand",
+]
+
+[[package]]
 name = "cpufeatures"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -38,13 +45,6 @@ dependencies = [
  "libc",
  "r-efi",
  "wasip2",
-]
-
-[[package]]
-name = "guessing_game"
-version = "0.1.0"
-dependencies = [
- "rand",
 ]
 
 [[package]]
